@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercedes-Benz | The Best or Nothing</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;}
+/* HEADER */
+header{position:fixed;top:0;width:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:999;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo svg{width:44px;height:44px;}
+.logo-text{font-size:1.2rem;letter-spacing:4px;font-weight:300;color:#c9a84c;}
+nav ul{list-style:none;display:flex;gap:2rem;}
+nav a{color:#ccc;text-decoration:none;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;transition:color 0.3s;}
+nav a:hover{color:#c9a84c;}
+.menu-btn{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;}
+/* HERO */
+.hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.55;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.2) 100%);}
+.hero-content{position:relative;z-index:2;padding:0 2rem;max-width:700px;}
+.hero-badge{font-size:0.7rem;letter-spacing:4px;color:#c9a84c;text-transform:uppercase;margin-bottom:1rem;}
+.hero-content h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:200;line-height:1.1;letter-spacing:2px;margin-bottom:1.5rem;}
+.hero-content h1 span{color:#c9a84c;font-style:italic;}
+.hero-content p{font-size:1.1rem;color:#bbb;font-weight:300;margin-bottom:2.5rem;line-height:1.7;}
+.btn-primary{background:#c9a84c;color:#000;padding:14px 36px;text-decoration:none;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;display:inline-block;transition:all 0.3s;}
+.btn-primary:hover{background:#e8c96e;transform:translateY(-2px);}
+.btn-outline{border:1px solid #c9a84c;color:#c9a84c;padding:14px 36px;text-decoration:none;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;display:inline-block;margin-left:1rem;transition:all 0.3s;}
+.btn-outline:hover{background:#c9a84c;color:#000;}
+/* MODELS SECTION */
+#models{padding:100px 2rem;background:#0d0d0d;}
+.section-label{font-size:0.7rem;letter-spacing:5px;color:#c9a84c;text-transform:uppercase;text-align:center;margin-bottom:1rem;}
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:200;text-align:center;letter-spacing:2px;margin-bottom:4rem;}
+.models-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;max-width:1200px;margin:0 auto;}
+.model-card{position:relative;overflow:hidden;cursor:pointer;group:true;}
+.model-card img{width:100%;height:280px;object-fit:cover;transition:transform 0.6s ease;display:block;}
+.model-card:hover img{transform:scale(1.08);}
+.model-info{position:absolute;bottom:0;left:0;right:0;padding:2rem;background:linear-gradient(transparent,rgba(0,0,0,0.9));transform:translateY(20px);transition:transform 0.3s;}
+.model-card:hover .model-info{transform:translateY(0);}
+.model-name{font-size:1.4rem;font-weight:300;letter-spacing:2px;margin-bottom:0.3rem;}
+.model-class{font-size:0.7rem;letter-spacing:3px;color:#c9a84c;text-transform:uppercase;}
+.model-price{font-size:0.85rem;color:#888;margin-top:0.5rem;}
+/* FEATURED */
+#featured{padding:100px 2rem;background:#111;}
+.featured-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.featured-img{position:relative;}
+.featured-img img{width:100%;border-radius:0;display:block;}
+.featured-img::before{content:'';position:absolute;top:-20px;left:-20px;right:20px;bottom:20px;border:1px solid #c9a84c;z-index:-1;}
+.featured-text .tag{font-size:0.7rem;letter-spacing:4px;color:#c9a84c;text-transform:uppercase;margin-bottom:1rem;}
+.featured-text h2{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:200;letter-spacing:2px;line-height:1.2;margin-bottom:1.5rem;}
+.featured-text p{color:#999;line-height:1.8;margin-bottom:2rem;}
+.specs-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid #222;}
+.spec-item .val{font-size:1.6rem;font-weight:200;color:#c9a84c;}
+.spec-item .lbl{font-size:0.65rem;letter-spacing:2px;color:#555;text-transform:uppercase;margin-top:4px;}
+/* GALLERY */
+#gallery{padding:80px 2rem;background:#0a0a0a;}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto;gap:3px;max-width:1200px;margin:3rem auto 0;}
+.gallery-grid img{width:100%;height:220px;object-fit:cover;display:block;transition:opacity 0.3s;}
+.gallery-grid img:hover{opacity:0.75;}
+.gallery-grid img:first-child{grid-column:span 2;height:300px;}
+/* CONTACT */
+#contact{padding:100px 2rem;background:#111;}
+.contact-inner{max-width:700px;margin:0 auto;text-align:center;}
+.contact-inner h2{font-size:clamp(2rem,4vw,3rem);font-weight:200;letter-spacing:2px;margin-bottom:1rem;}
+.contact-inner p{color:#777;margin-bottom:3rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-row.full{grid-template-columns:1fr;}
+input,textarea,select{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;color:#fff;padding:14px 16px;font-family:inherit;font-size:0.9rem;outline:none;transition:border 0.3s;}
+input:focus,textarea:focus,select:focus{border-color:#c9a84c;}
+textarea{min-height:120px;resize:vertical;}
+.submit-btn{background:#c9a84c;color:#000;border:none;padding:16px 50px;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;margin-top:1rem;transition:all 0.3s;width:100%;}
+.submit-btn:hover{background:#e8c96e;}
+.success-box{background:#1a2a1a;border:1px solid #2a5a2a;color:#5fb95f;padding:1rem;margin-bottom:1.5rem;display:none;font-size:0.9rem;}
+/* FOOTER */
+footer{background:#000;padding:3rem 2rem;text-align:center;border-top:1px solid #1a1a1a;}
+footer p{color:#444;font-size:0.8rem;letter-spacing:2px;}
+footer .gold{color:#c9a84c;margin-bottom:1rem;font-size:0.7rem;letter-spacing:4px;}
+/* MOBILE */
+@media(max-width:768px){
+nav ul{display:none;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:#000;padding:1rem;}
+nav ul.open{display:flex;}
+.menu-btn{display:block;}
+.featured-inner{grid-template-columns:1fr;}
+.featured-img::before{display:none;}
+.form-row{grid-template-columns:1fr;}
+.gallery-grid{grid-template-columns:1fr 1fr;}
+.gallery-grid img:first-child{grid-column:span 2;}
+.btn-outline{margin:1rem 0 0 0;display:block;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" stroke="#c9a84c" stroke-width="2"/>
+      <circle cx="50" cy="50" r="38" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+      <line x1="50" y1="2" x2="50" y2="50" stroke="#c9a84c" stroke-width="2"/>
+      <line x1="50" y1="50" x2="93.3" y2="74" stroke="#c9a84c" stroke-width="2"/>
+      <line x1="50" y1="50" x2="6.7" y2="74" stroke="#c9a84c" stroke-width="2"/>
+      <circle cx="50" cy="50" r="5" fill="#c9a84c"/>
+    </svg>
+    <span class="logo-text">MERCEDES-BENZ</span>
+  </div>
+  <nav>
+    <ul id="nav-menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#models">Models</a></li>
+      <li><a href="#featured">AMG</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <button class="menu-btn" id="menu-btn">☰</button>
+</header>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1600&q=80" alt="Mercedes-Benz Hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Mercedes-Benz &nbsp;·&nbsp; Est. 1926</div>
+    <h1>The Best or <span>Nothing.</span></h1>
+    <p>Experience the pinnacle of automotive engineering. Where luxury meets performance, and innovation defines every journey.</p>
+    <a href="#models" class="btn-primary">Explore Models</a>
+    <a href="#contact" class="btn-outline">Book a Test Drive</a>
+  </div>
+</section>
+
+<!-- MODELS -->
+<section id="models">
+  <div class="section-label">Our Lineup</div>
+  <h2 class="section-title">Choose Your Class</h2>
+  <div class="models-grid">
+    <div class="model-card">
+      <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=700&q=80" alt="C-Class">
+      <div class="model-info">
+        <div class="model-class">Sedan</div>
+        <div class="model-name">C-Class</div>
+        <div class="model-price">Starting at ₹55,00,000</div>
+      </div>
+    </div>
+    <div class="model-card">
+      <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=700&q=80" alt="E-Class">
+      <div class="model-info">
+        <div class="model-class">Executive Sedan</div>
+        <div class="model-name">E-Class</div>
+        <div class="model-price">Starting at ₹75,00,000</div>
+      </div>
+    </div>
+    <div class="model-card">
+      <img src="https://images.unsplash.com/photo-1563720223523-87ae5e2c5fbe?w=700&q=80" alt="GLE SUV">
+      <div class="model-info">
+        <div class="model-class">SUV</div>
+        <div class="model-name">GLE Class</div>
+        <div class="model-price">Starting at ₹92,00,000</div>
+      </div>
+    </div>
+    <div class="model-card">
+      <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=700&q=80" alt="S-Class">
+      <div class="model-info">
+        <div class="model-class">Flagship Luxury</div>
+        <div class="model-name">S-Class</div>
+        <div class="model-price">Starting at ₹1,80,00,000</div>
+      </div>
+    </div>
+    <div class="model-card">
+      <img src="https://images.unsplash.com/photo-1571607388263-1044f9ea0171?w=700&q=80" alt="AMG GT">
+      <div class="model-info">
+        <div class="model-class">Sports Car</div>
+        <div class="model-name">AMG GT</div>
+        <div class="model-price">Starting at ₹2,25,00,000</div>
+      </div>
+    </div>
+    <div class="model-card">
+      <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=80" alt="EQS Electric">
+      <div class="model-info">
+        <div class="model-class">Electric</div>
+        <div class="model-name">EQS</div>
+        <div class="model-price">Starting at ₹1,60,00,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED AMG -->
+<section id="featured">
+  <div class="featured-inner">
+    <div class="featured-img">
+      <img src="https://images.unsplash.com/photo-1597007030739-6d2b046a8f9e?w=800&q=80" alt="AMG Performance">
+    </div>
+    <div class="featured-text">
+      <div class="tag">Performance Series</div>
+      <h2>AMG. Driving Performance.</h2>
+      <p>AMG is the high-performance brand of Mercedes-Benz. Handcrafted engines, race-bred technology, and uncompromising power — AMG is not just a car, it's a statement.</p>
+      <p>Each AMG engine is hand-built by a single engineer who signs it. Pure performance. Pure passion.</p>
+      <a href="#contact" class="btn-primary">Configure Yours</a>
+      <div class="specs-row">
+        <div class="spec-item">
+          <div class="val">630</div>
+          <div class="lbl">Horsepower</div>
+        </div>
+        <div class="spec-item">
+          <div class="val">3.2s</div>
+          <div class="lbl">0–100 km/h</div>
+        </div>
+        <div class="spec-item">
+          <div class="val">315</div>
+          <div class="lbl">Top Speed km/h</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-label">Visual Story</div>
+  <h2 class="section-title" style="text-align:center;">Gallery</h2>
+  <div class="gallery-grid">
+    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=80" alt="Mercedes Gallery 1">
+    <img src="https://images.unsplash.com/photo-1600712242805-5f78671b24da?w=500&q=80" alt="Mercedes Interior">
+    <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?w=500&q=80" alt="Mercedes Night">
+    <img src="https://images.unsplash.com/photo-1541348263662-e068662d82af?w=500&q=80" alt="Mercedes Side">
+    <img src="https://images.unsplash.com/photo-1622385057374-5bec3d9c2bca?w=500&q=80" alt="Mercedes Front">
+    <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=500&q=80" alt="Mercedes Road">
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Get In Touch</div>
+    <h2>Book a Test Drive</h2>
+    <p>Experience the legend firsthand. Our experts will guide you through every detail.</p>
+    <div class="success-box" id="success-box">✓ Thank you! We'll contact you within 24 hours to confirm your test drive.</div>
+    <form id="contact-form">
+      <div class="form-row">
+        <input type="text" id="fname" placeholder="First Name *">
+        <input type="text" id="lname" placeholder="Last Name *">
+      </div>
+      <div class="form-row">
+        <input type="email" id="email" placeholder="Email Address *">
+        <input type="tel" id="phone" placeholder="Phone Number">
+      </div>
+      <div class="form-row full">
+        <select id="model-select">
+          <option value="">Select a Model</option>
+          <option>C-Class</option>
+          <option>E-Class</option>
+          <option>GLE Class</option>
+          <option>S-Class</option>
+          <option>AMG GT</option>
+          <option>EQS Electric</option>
+        </select>
+      </div>
+      <div class="form-row full">
+        <textarea id="message" placeholder="Any specific requirements or questions?"></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Book Test Drive</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="gold">MERCEDES-BENZ &nbsp;·&nbsp; THE BEST OR NOTHING</div>
+  <p>© 2026 Mercedes-Benz. All rights reserved. &nbsp;|&nbsp; College Project — Web Development</p>
+</footer>
+
+<script>
+const menuBtn = document.getElementById('menu-btn');
+const navMenu = document.getElementById('nav-menu');
+menuBtn.addEventListener('click', () => {
+  navMenu.classList.toggle('open');
+});
+navMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navMenu.classList.remove('open'));
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+document.getElementById('contact-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const fn = document.getElementById('fname').value.trim();
+  const em = document.getElementById('email').value.trim();
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!fn){alert('Please enter your first name.');return;}
+  if(!em || !emailRe.test(em)){alert('Please enter a valid email address.');return;}
+  const box = document.getElementById('success-box');
+  box.style.display = 'block';
+  e.target.reset();
+  setTimeout(() => box.style.display = 'none', 6000);
+});
+</script>
+</body>
+</html>
